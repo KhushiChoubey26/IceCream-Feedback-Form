@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <%- include('header'); -%>
+
+  <header>
+    <div class="container-fluid bg-info-subtle mb-4">
+      <div class="col-sm-8 mx-auto text-center py-2">
+        <h1 class="display-4">World of Ice Cream</h1>
+        <p class="lead">Search Results for "<%= searchTerm %>"</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h3>Search Results</h3>
+      <% if (rows.length > 0) { %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ice Cream Type</th>
+              <th>Feedback</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% rows.forEach(row => { %>
+              <tr>
+                <td><%= row.id %></td>
+                <td><%= row.icecreamtype %></td>
+                <td><%= row.feedback %></td>
+                <td><%= row.rating %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No feedback found for the specified ice cream type.</p>
+      <% } %>
+
+      <p><a href="/">Return to the feedback form</a></p>
+    </div>
+  </main>
+
+  <%- include('footer'); -%>
+</body>
+</html>

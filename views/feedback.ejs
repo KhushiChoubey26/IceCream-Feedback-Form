@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <%- include('header'); -%>
+  <main>
+    <div class="container">
+      <h3>Feedback List</h3>
+      <% if (feedbackList.length > 0) { %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Ice Cream Type</th>
+              <th>Rating</th>
+              <th>Feedback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% feedbackList.forEach(feedback => { %>
+              <tr>
+                <td><%= feedback.id %></td>
+                <td><%= feedback.name %></td>
+                <td><%= feedback.icecreamtype %></td>
+                <td><%= feedback.rating %></td>
+                <td><%= feedback.feedback %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No feedback available.</p>
+      <% } %>
+      <p><a href="/">Return to the feedback form</a></p>
+    </div>
+  </main>
+  <%- include('footer'); -%>
+</body>
+</html>

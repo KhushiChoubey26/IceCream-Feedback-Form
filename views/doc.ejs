@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Authentication with bcrypt</title>
+</head>
+<body>
+    <%- include('header'); -%>
+    <main>
+        <div class="container">
+            <h1>Secure Authentication with bcrypt</h1>
+            <p>This tutorial explains how to implement secure user authentication using bcrypt in a Node.js and Express application.</p>
+            <h2>Installation</h2>
+            <pre><code>npm install bcrypt</code></pre>
+            <h2>Usage</h2>
+            <h3>User Registration</h3>
+            <pre><code>
+const saltRounds = 10;
+const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+const stmt = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+stmt.run(username, hashedPassword, function(err) {
+    if (err) {
+        return res.status(500).send('Database error: ' + err.message);
+    }
+    res.redirect('/login');
+});
+stmt.finalize();
+            </code></pre>
+            <h3>User Login</h3>
+            <pre><code>
+db.get("SELECT * FROM users WHERE username = ?", [username], async (err, row) => {
+    if (err) {
+        return res.status(500).send('Database error: ' + err.message);
+    }
+    if (!row || !(await bcrypt.compare(password, row.password))) {
+        return res.status(401).send('Invalid username or password');
+    }
+    req.session.user = row;
+    res.redirect('/');
+});
+            </code></pre>
+            <p>This setup ensures that user passwords are stored securely in the database and that password comparisons are handled correctly during login.</p>
+        </div>
+    </main>
+    <%- include('footer'); -%>
+</body>
+</html>

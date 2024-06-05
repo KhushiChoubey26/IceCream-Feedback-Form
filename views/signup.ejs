@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <%- include('header'); -%>
+  <main>
+    <div class="container">
+      <h3>Create an Account</h3>
+      <form action="/signup" method="post">
+        <div class="row mb-2">
+          <label class="col-sm-2 col-form-label-sm text-sm-end" for="username">Username:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <label class="col-sm-2 col-form-label-sm text-sm-end" for="password">Password:</label>
+          <div class="col-sm-9">
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-sm mx-auto d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Create Account</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+  <%- include('footer'); -%>
+</body>
+</html>

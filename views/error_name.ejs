@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error: Name Missing</title>
+</head>
+<body>
+    <%- include('header'); -%>
+    <header>
+        <div class="container-fluid bg-danger-subtle mb-4">
+            <div class="col-sm-8 mx-auto text-center py-2">
+                <h1 class="display-4">Error</h1>
+                <p class="lead">There was an error with your submission.</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h3>Error: Name field is required.</h3>
+            <p><a href="/">Return to the feedback form</a></p>
+        </div>
+    </main>
+    <%- include('footer'); -%>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('header'); -%>
+
+    <header>
+        <div class="container-fluid bg-danger-subtle mb-4">
+            <div class="col-sm-8 mx-auto text-center py-2">
+                <h1 class="display-4">An Error Occurred</h1>
+                <p class="lead"><%= message %></p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Error Details</h2>
+            <% if (typeof error !== 'undefined') { %>
+                <p>Status: <%= error.status || 500 %></p>
+                <pre><%= error.stack %></pre>
+            <% } else { %>
+                <p>No additional error information is available.</p>
+            <% } %>
+        </div>
+    </main>
+
+    <%- include('footer'); -%>
+</body>
+</html>

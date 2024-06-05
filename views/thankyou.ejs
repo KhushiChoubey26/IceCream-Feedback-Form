@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('header'); -%>
+
+    <header>
+        <div class="container-fluid bg-info-subtle mb-4">
+            <div class="col-sm-8 mx-auto text-center py-2">
+                <h1 class="display-4">World of Ice Cream</h1>
+                <p class="lead">Thank you for your feedback!</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h3>Ice Cream Review</h3>
+            <p>Thank you <%= name %> for your feedback and rating on your favourite ice cream <%= flavor %>.</p>
+            <p>You gave us a score of <%= rating %> out of 5!</p>
+            <p>Feedback provided was: <%= feedback %></p>
+
+            <% if (rating > 2) { %>
+                <p>😀 Fantastic! That is wonderful you liked the <%= flavor %> ice cream.</p>
+            <% } else { %>
+                <p>😢 We are sorry to hear that your experience was not up to the mark.</p>
+            <% } %>
+
+            <p><a href="/">Return to the feedback form</a></p>
+        </div>
+    </main>
+
+    <%- include('footer'); -%>
+</body>
+</html>
