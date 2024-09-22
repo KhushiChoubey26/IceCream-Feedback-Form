@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh '''
                 echo 'Building the project...'
-                // Add build steps here
-                // For a Node.js project, for example, you'd run `npm install`
                 ls -l
                 pwd
-                sh 'npm install'
+                npm install
+                '''
             }
         }
 
