@@ -1,24 +1,23 @@
-
 pipeline {
     agent any  // This specifies that the pipeline can run on any available Jenkins agent
     environment {
         PATH = "${env.PATH};C:/Program Files/nodejs/npm"
     }
 
-    stages{
-    stage('Clone Repository') {
-        steps {
-            git branch: 'main', url: 'https://github.com/sreedharashwin/simple-java-springboot.git'
-        }
-    }
     stages {
-       stage('Build') {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/sreedharashwin/simple-java-springboot.git'
+            }
+        }
+        
+        stage('Build') {
             steps {
                 script {
-                echo 'Building the code...'
-                sh 'npm install'
-                echo 'DONE Building the code...'
-            }
+                    echo 'Building the code...'
+                    sh 'npm install'
+                    echo 'DONE Building the code...'
+                }
             }
         }
 
