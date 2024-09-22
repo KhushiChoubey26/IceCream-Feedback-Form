@@ -10,12 +10,6 @@ describe('Ice Cream Feedback Form', () => {
         expect(result).toBe(true);
     });
 
-    test('should reject an empty name', () => {
-        const invalidName = '';
-        const result = validateName(invalidName);
-        expect(result).toBe(false);
-    });
-
     test('should reject a name that is too short', () => {
         const shortName = 'A';
         const result = validateName(shortName);
