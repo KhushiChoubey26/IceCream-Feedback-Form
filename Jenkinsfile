@@ -1,7 +1,7 @@
 pipeline {
     agent any  // This specifies that the pipeline can run on any available Jenkins agent
     environment {
-        set PATH = %PATH%:C:\Program Files\nodejs\npm.cmd
+         PATH = %PATH%:C:\Program Files\nodejs\npm.cmd
     }
     stages {
        stage('Build') {
