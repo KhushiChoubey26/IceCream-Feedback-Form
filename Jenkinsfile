@@ -1,5 +1,5 @@
 pipeline {
-    agent any  // This specifies that the pipeline can run on any available Jenkins agent
+    agent any
     environment {
         PATH = "${env.PATH};C:/Program Files/nodejs/npm"
     }
@@ -15,10 +15,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the code...'
-                    def status = sh script: 'npm install', returnStatus: true
-                    if (status != 0) {
-                        error "Build failed"
-                    }
+                    sh 'npm install'
                     echo 'DONE Building the code...'
                 }
             }
@@ -26,30 +23,27 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                def status = sh script: 'npm test', returnStatus: true
-                if (status != 0) {
-                    error "Test failed"
+                script {
+                    echo 'Running tests...'
+                    sh 'npm test'
                 }
             }
         }
 
         stage('Code Quality') {
             steps {
-                echo 'Running code quality checks...'
-                def status = sh script: 'npm run lint', returnStatus: true
-                if (status != 0) {
-                    error "Code quality check failed"
+                script {
+                    echo 'Running code quality checks...'
+                    sh 'npm run lint'
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
-                def status = sh script: 'git push heroku main', returnStatus: true
-                if (status != 0) {
-                    error "Deployment failed"
+                script {
+                    echo 'Deploying the application...'
+                    sh 'git push heroku main'
                 }
             }
         }
