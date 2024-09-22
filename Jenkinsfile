@@ -4,12 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                script{
                 sh '''
                 echo 'Building the project...'
                 ls -l
                 pwd
                 npm install
                 '''
+                }
             }
         }
 
