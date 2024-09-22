@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    sh 'npm test'
+                    bat 'npm test'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running code quality checks...'
-                    sh 'npm run lint'
+                    bat 'npm run lint'
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying the application...'
-                    sh 'git push heroku main'
+                   // bat 'git push heroku main'
                 }
             }
         }
