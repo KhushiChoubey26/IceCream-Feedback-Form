@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the code...'
-                    sh 'npm install'
+                    bat 'npm install'
                     echo 'DONE Building the code...'
                 }
             }
