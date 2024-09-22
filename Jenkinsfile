@@ -15,7 +15,10 @@ pipeline {
             steps {
                 script {
                     echo 'Building the code...'
-                    sh 'npm install'
+                    def status = sh script: 'npm install', returnStatus: true
+                    if (status != 0) {
+                        error "Build failed"
+                    }
                     echo 'DONE Building the code...'
                 }
             }
@@ -24,35 +27,36 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // Add test steps here, for example using a test framework like Jest or Mocha
-                sh 'npm test'
+                def status = sh script: 'npm test', returnStatus: true
+                if (status != 0) {
+                    error "Test failed"
+                }
             }
         }
 
         stage('Code Quality') {
             steps {
                 echo 'Running code quality checks...'
-                // Add code quality analysis step, for example using ESLint
-                sh 'npm run lint'
+                def status = sh script: 'npm run lint', returnStatus: true
+                if (status != 0) {
+                    error "Code quality check failed"
+                }
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add deployment steps here
-                // For example, you might want to deploy to a staging environment or a Docker container
-                // Example for deploying to Heroku:
-                sh 'git push heroku main'
+                def status = sh script: 'git push heroku main', returnStatus: true
+                if (status != 0) {
+                    error "Deployment failed"
+                }
             }
         }
 
         stage('Release') {
             steps {
                 echo 'Releasing to production...'
-                // Add release steps here
-                // Example for promoting from staging to production:
-                // sh 'deploy-to-prod.sh' or similar
             }
         }
     }
