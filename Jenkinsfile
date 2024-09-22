@@ -2,16 +2,12 @@ pipeline {
     agent any  // This specifies that the pipeline can run on any available Jenkins agent
 
     stages {
-        stage('Build') {
+       stage('Build') {
             steps {
-                script{
-                sh '''
-                echo 'Building the project...'
-                ls -l
-                pwd
-                npm install
-                '''
-                }
+                script {
+                echo 'Building the code...'
+                sh 'npm install'
+            }
             }
         }
 
