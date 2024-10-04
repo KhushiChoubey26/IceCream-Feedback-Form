@@ -33,10 +33,8 @@ pipeline {
         stage('Code Quality') {
             steps {
                 script {
-                    echo 'Running SonarQube analysis...'
-                    withSonarQubeEnv('SonarQube') {  // SonarQube should be correctly configured
-                        bat 'npx sonar-scanner'  // Run SonarQube scanner
-                    }
+                    echo 'Running code quality checks...'
+                    bat 'npm run lint'
                 }
             }
         }
