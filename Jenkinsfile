@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH = "${env.PATH};C:/Program Files/nodejs/npm"
+        PATH = "${env.PATH};C:/Program Files/nodejs/npm"  // Ensure Node.js is in the PATH
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the code...'
-                    bat 'npm install'
+                    bat 'npm install'  // Install project dependencies
                     echo 'DONE Building the code...'
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    bat 'npm test'
+                    bat 'npm test'  // Run tests using npm
                 }
             }
         }
@@ -34,28 +34,27 @@ pipeline {
             steps {
                 script {
                     echo 'Running SonarQube analysis...'
-                    withSonarQubeEnv('SonarQube') {
-                        bat 'npx sonar-scanner'
+                    withSonarQubeEnv('SonarQube') {  // SonarQube should be correctly configured
+                        bat 'npx sonar-scanner'  // Run SonarQube scanner
                     }
                 }
             }
         }
-         stage('Deploy') {
+
+        stage('Deploy') {
             steps {
                 script {
                     echo 'Deploying the application...'
-                    bat 'docker-compose up -d' // Deploy to a staging environment
+                    bat 'docker-compose up -d'  // Deploy the app using Docker Compose
                 }
             }
         }
-
-
 
         stage('Release') {
             steps {
                 script {
                     echo 'Releasing the application to production...'
-                    bat 'aws deploy push --application-name MyApp --s3-location s3://mybucket/MyApp.zip'
+                    bat 'aws deploy push --application-name MyApp --s3-location s3://mybucket/MyApp.zip'  // Ensure AWS CLI is configured
                 }
             }
         }
@@ -64,19 +63,20 @@ pipeline {
             steps {
                 script {
                     echo 'Setting up monitoring...'
-                    bat 'datadog-agent start'
+                    bat 'datadog-agent start'  // Start Datadog agent for monitoring
                 }
             }
         }
     }
 
-
     post {
         success {
             echo 'Pipeline completed successfully!'
+            // Optional: Add notification here (e.g., email, Slack)
         }
         failure {
             echo 'Pipeline failed.'
+            // Optional: Add notification here for failure
         }
     }
 }
