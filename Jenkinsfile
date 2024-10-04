@@ -33,27 +33,43 @@ pipeline {
         stage('Code Quality') {
             steps {
                 script {
-                    echo 'Running code quality checks...'
-                    bat 'npm run lint'
+                    echo 'Running SonarQube analysis...'
+                    withSonarQubeEnv('SonarQube') {
+                        bat 'npx sonar-scanner'
+                    }
                 }
             }
         }
-
-        stage('Deploy') {
+         stage('Deploy') {
             steps {
                 script {
                     echo 'Deploying the application...'
-                   // bat 'git push heroku main'
+                    bat 'docker-compose up -d' // Deploy to a staging environment
                 }
             }
         }
 
+
+
         stage('Release') {
             steps {
-                echo 'Releasing to production...'
+                script {
+                    echo 'Releasing the application to production...'
+                    bat 'aws deploy push --application-name MyApp --s3-location s3://mybucket/MyApp.zip'
+                }
+            }
+        }
+
+        stage('Monitoring') {
+            steps {
+                script {
+                    echo 'Setting up monitoring...'
+                    bat 'datadog-agent start'
+                }
             }
         }
     }
+
 
     post {
         success {
